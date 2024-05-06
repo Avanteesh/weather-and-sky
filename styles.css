@@ -1,0 +1,463 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #fff;
+    transition: 0.35s;
+}
+:root {
+    /* navbar and background settings */
+    --main-background: rgba(46, 46, 46, 0.959);
+    --navigation-bar-color: rgb(41, 41, 44);
+    --font-size-for-navicons: 2.0rem;
+    /* content settings*/
+    --content-width: 100%;
+    --search-bar-color: rgb(82, 137, 255);
+    --search-bar-height: 54px;
+    --search-bar-border-radius: 10px;
+    /* location widget icons */
+    --widget-height: 85px;
+    --component-color-one: #1aa5f5;
+    /* time clock text */
+    --time-clock-color: rgba(24, 216, 206, 0.966);
+    /* mmon section -div*/
+    --moon-image-height: 210px;
+    /* weather display div */
+    --weather-container-height: 650px;
+    --weather-display-container-background: #e7f6ff5d;
+    /* full moon lore dialog-box */
+    --lore-dialog-window-height: 75vh;
+    --lore-dialog-background: rgba(2, 19, 43, 0.96);
+}
+::selection {
+    background-color: #3cb5fc9a;
+}
+/* imported fonts */
+@font-face {
+    font-family: 'Time-clock';
+    src: url('timeclock.ttf') format('truetype');
+}
+
+body {
+    display: grid;
+    background: var(--main-background);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.container-wrapper {
+    display: flex;
+    height: 99%;
+    justify-content: space-between;
+}
+.container-wrapper .navigation-container {
+    position: fixed;
+    height: 99%;
+    width: 9%;
+}
+.navigation-container nav {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    width: 73px;
+    background: var(--navigation-bar-color);
+    font-weight: bold;
+    font-size: var(--font-size-for-navicons);
+    padding: 25px;
+}
+.navigation-container nav ul  {
+    display: grid;
+    place-items: center;
+    list-style: none;
+    grid-template-rows: repeat(5, 1fr);
+    row-gap: 5vh;   
+    height: 69%;
+    width: max-content;
+}
+.navigation-container nav ul li {
+    width: 100%;
+}
+
+.navigation-container nav ul li i:hover {
+    cursor: pointer;
+    text-shadow: 0px 0px 14px #fff;
+}
+
+.navigation-container nav ul li #location-tracker {
+    color: rgba(248, 51, 51, 0.993);
+}
+.navigation-container nav ul li #location-tracker:hover {
+    text-shadow: 0px 0px 14px #ff4343d2;
+}
+
+/* navbar end*/
+
+/* content-section */
+.container-wrapper .content-of-container {
+    display: grid;
+    place-items: center;
+    width: var(--content-width);
+    margin-top: 18vh;
+    margin-left: 6%;
+}
+
+.content-of-container .location-wrapper {
+    display: grid; /* display grid when block-line element*/
+    place-items: center;
+}
+.location-wrapper .search-section {
+    display: grid;
+    grid-template-columns: repeat(2, 0.6fr);
+    place-items: center;
+}
+/* search bar div */
+.search-section .searching-div {
+    background-color: var(--search-bar-color);
+    height: var(--search-bar-height);
+    width: calc(var(--search-bar-height) * 5.1);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: var(--search-bar-border-radius);
+}
+.search-section .searching-div i {
+    display: grid;
+    place-items: center;
+    height: calc(var(--search-bar-height) - 5px);
+    aspect-ratio: 1;
+    font-size: 1.5rem;
+}
+.search-section .searching-div i:hover {
+    cursor: pointer;
+}
+.search-section .searching-div input {
+    color: #111111;
+    padding-left: 10px;
+    height: calc(var(--search-bar-height) - 8px);
+    width: calc(var(--search-bar-height) * 4);
+    border-top-right-radius: var(--search-bar-border-radius);
+    border-bottom-right-radius: var(--search-bar-border-radius);
+    font-size: 1.1rem;
+    border: none;
+}
+.searching-div input:focus {
+    outline: none;
+}
+.search-section .location-adder button {
+    height: calc(var(--search-bar-height) - 5px);
+    aspect-ratio: 1;
+    background: var(--component-color-one);
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 2.3rem;
+}
+.search-section .location-adder button:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 11px 0.1px var(--component-color-one);
+}
+.search-section .saved-locations {
+    padding: 10px;
+}
+.saved-locations .location-boxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 5vh;
+}
+.location-boxes .location {
+    display: grid;
+    place-items: center;
+    height: var(--widget-height);
+    aspect-ratio: 1;
+    border-radius: 16px;
+    background: rgba(116, 115, 115, 0.966);
+    margin: 10px;
+    font-weight: bold;
+}
+.location .buttons i {
+    padding: 4px;
+    border-radius: 50%;
+}
+.location .buttons i:hover {
+    background-color: var(--component-color-one);
+    cursor: pointer;
+}
+/* time-and-stop-watch wrapper */
+.content-of-container .time-clock-wrapper  {
+    display: none; /* display: grid when block element*/
+    place-items: center;
+    margin-top: -6vh;
+    text-align: center;
+}
+.time-clock-wrapper header  {
+    font-family: monospace;
+    font-size: 1.86rem;
+    padding: 10px;
+}
+.time-and-date-wrapper div {
+    margin: 15px;
+}
+.time-clock-wrapper .time-and-date-wrapper {
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Time-clock', monospace;
+    margin-top: 8vh;
+    color: var(--time-clock-color);
+    text-shadow: -0.75px -0.75px 25px var(--time-clock-color);
+}
+.time-and-date-wrapper .week-day-name-bar {
+    margin: 15px;
+}
+.week-day-name-bar .week-day-text span {
+    font-weight: 700;
+    opacity: 0.5;
+    font-size: 1.2rem;
+}
+.time-and-date-wrapper .current-time-renderer span {
+    font-weight: bold;
+    font-size: 2.5rem;
+    margin: 5px;
+}
+/* moon phase wrapper */
+.Moon-phase-wrapper {
+    display: none; /* display: grid when block line element */
+    place-items: center;
+    margin-top: -6vh;
+}
+.Moon-phase-wrapper .content-of-moon {
+    display: grid;
+    text-align: center;
+}
+.content-of-moon .Heading-moon header {
+    font-size: 2.4rem;
+    font-family: monospace;
+    font-weight: 500;
+    user-select: none;
+    padding: 5px;
+    text-shadow: 0px 0px 9px #fff;
+}
+.content-of-moon .location-parameters  {
+    display: grid;
+    place-items: center;
+    font-family: monospace;
+    --Height: 45px;
+    margin: 8px;
+    margin-left: 74px;
+    height: var(--Height);
+    padding: 4px;
+    width: calc(var(--Height) * 6);
+    background-color: rgba(255, 255, 255, 0.233);
+    border: 2.9px solid #fff01fbb;
+    border-radius: 25px;
+    font-size: 0.8rem;
+}
+.location-parameters p {
+    color: rgba(93, 255, 93, 0.952);
+}
+.Moon-phase-wrapper .moon-section {
+    display: grid;
+    place-items: center;
+    margin-top: 3vh;
+}
+.moon-section .Moon-detail-div {
+    margin: 20px;
+    padding: 20px;
+}
+.Moon-detail-div  .moon-image  {
+    height: var(--moon-image-height);
+    width: var(--moon-image-height);
+    padding: 20px;
+    background-position: center;
+    background-size: 27vh;
+}
+.moon-section .moon-info-text span {
+    font-size: 1.75rem;
+    margin: 8px;
+    font-weight: bold;
+    font-family: monospace;
+}
+.moon-info-text span i {
+    display: none;
+    text-shadow: 0px 0px 5px #fff;
+    padding: 10px;   
+}
+.moon-info-text span i:hover {
+    cursor: pointer;
+    --color: rgb(255, 255, 97);
+    color: var(--color);
+    text-shadow: 0px 0px 5px var(--color);
+}
+.moon-section .Moon-info-and-current-parameters  {
+    display: grid;
+    margin-top: 3vh;
+    grid-template-columns: repeat(2, 2fr);
+    grid-template-rows: repeat(2, 2fr);
+    row-gap: 5px;
+    column-gap: 2vh;
+    font-family: Courier, monospace;
+    font-weight: 435;
+    font-size: 1.18rem;
+}
+/* dialog box */
+.Moon-phase-wrapper dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow-x: none;
+    overflow-y: scroll;
+    background: var(--lore-dialog-background);
+    border-radius: 2%;
+    padding: 16px;
+    height: var(--lore-dialog-window-height);
+    width: calc(var(--lore-dialog-window-height) - 160px);
+    border: none;
+    box-shadow: 0px 0px 14px 1px #a3c5f8;
+    transition: 0.98s;
+}
+.Moon-phase-wrapper .full-moon-names .top-close-button  {
+    display: flex;
+    justify-content: flex-end;
+}
+.top-close-button i {
+    color: rgba(255, 55, 55, 0.932);
+    font-size: 1.1rem;
+}
+.top-close-button i:hover {
+    cursor: pointer;
+    text-shadow: 0px 0px 5px #fd3e3ef5;
+}
+.full-moon-names .content-of-full-moon-names {
+    display: grid;
+    grid-template-rows: repeat(3, 0.4fr);
+    margin-top: 4vh;
+    font-family: monospace;
+}
+.content-of-full-moon-names .Heading {
+    display: grid;
+    place-items: center;
+} 
+.content-of-full-moon-names .Heading header {
+    display: grid;
+    place-items: center;
+    font-family:'Courier New', Courier, monospace;
+    font-size: 1.78rem;
+}
+.content-of-full-moon-names .calendar-photo {
+    display: grid;
+    place-items: center;
+    width: 97%;
+}
+.content-of-full-moon-names .calendar-photo i {
+    text-align: center;
+    font-size: 3.1rem;
+}
+.content-of-full-moon-names .First-Para {
+    margin-top: 25px;
+    font-size: 1.3rem;
+}
+.content-of-full-moon-names div {
+    width: 98%;
+}
+.inner-para-graphs .Moon-image {
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    padding-top: 25px;
+}
+.inner-para-graphs .Moon-image .moon-image {
+    --height: 175px;
+    margin: 10px;
+    height: var(--height);
+    width: calc(var(--height) + 32px);
+}
+.inner-para-graphs .inner-heading{
+    --spacing-width: 18px;
+    margin-top: var(--spacing-width);
+    margin-bottom: calc(var(--spacing-width) - 5px);
+}
+.inner-heading > div header {
+    font-size: 1.5rem;
+    color: #126de4;
+    font-weight: 700;
+    user-select: none;
+    margin: 10px;
+}
+.inner-heading > div header:hover {
+    text-decoration: 3px solid underline #126de4;
+}
+.inner-heading div > p {
+    font-size: 0.94rem;
+    font-weight: 500;
+}
+/* weather-info-container*/
+
+.container-wrapper .weather-forecast-div {
+    display: none;   /* display: block when block line element*/
+    background: var(--weather-display-container-background);
+    text-align: center;
+    padding: 20px;
+    margin-top: -4vh;
+    border-radius: 20px;
+    height: var(--weather-container-height);
+    width: calc(var(--weather-container-height) - 72px);
+    box-shadow: 0px 0px 12px 0.9px var(--weather-display-container-background);
+}
+.weather-forecast-div .Heading {
+    font-size: 2.0rem;
+    font-family: monospace;
+    text-shadow: 0px 0px 7px #ccc;
+}
+.weather-forecast-div .The-weather .location-details {
+    font-size: 1.4rem;
+    font-family: 'Courier New', Courier;
+    margin: 10px;
+}
+.weather-forecast-div .weather-display {
+    margin: 10px;
+}
+.weather-display .display-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 8px;
+    user-select: none;
+}
+.display-div .weather-condition-display-image {
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    --Height: 200px;
+    height: var(--Height);
+    width: calc(var(--Height) - 40px);
+}
+.weather-condition-display-image .weather-image {
+    --image-height: 110px;
+    height: var(--image-height);
+    width: calc(var(--image-height) + 15px);
+}
+.display-div .Air-quality-and-temperature-index-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 200;
+}
+.Air-quality-and-temperature-index-div .temperature-text {
+    font-size: 1.05rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+}
+
+.weather-display .weather-parameters {
+    margin-top: 3.8vh;
+    font-size: 1.2rem;
+    text-align: start;
+    font-family:'Courier New', Courier, monospace;
+    font-weight: 700;
+}
+.weather-parameters .local-time, .last-update {
+    font-size: 0.95rem;
+}
