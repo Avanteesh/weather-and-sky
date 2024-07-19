@@ -72,7 +72,7 @@ let dateAndTimeValues = {
     seconds: (now.getSeconds() < 10) ? `0${now.getSeconds()}` : `${now.getSeconds()}`,
 };
 
-const APIkey = `48278ae16970414d80043811240605`;         // API key     
+const APIkey = `API-KEY`;         // API key     
 const URLMoon = `http://api.weatherapi.com/v1/astronomy.json?key=${APIkey}&q=${searchInput.value}&dt=${now}`;  
 const URLweather = `http://api.weatherapi.com/v1/current.json?key=${APIkey}&q=${searchInput.value}&aqi=yes`; 
 
